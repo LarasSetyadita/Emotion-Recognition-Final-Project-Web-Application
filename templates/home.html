@@ -1,6 +1,20 @@
 {% extends "base.html" %}
 {% block title %}article{% endblock %}
 {% block content %}
+  <!-- Container untuk dua kolom -->
+  <div class="flex flex-col md:flex-row w-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden">
+
+    <!-- Kolom kiri: Gambar -->
+    <div class="md:w-1/2">
+      <img src="./images/emotion_recognition.jpg/600x400" alt="Sample Image" class="w-full h-full object-cover">
+    </div>
+
+    <!-- Kolom kanan: Teks -->
+    <div class="md:w-1/2 p-8 flex flex-col justify-center">
+      <h1 class="text-3xl font-bold text-gray-800 mb-4">Title Here</h1>
+      <p class="text-gray-600 text-lg">This is some text on the right side of the layout. You can add more content here, such as descriptions or any other information.</p>
+      <a href="#" class="mt-4 inline-block px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300">Read More</a>
+    </div>
 <div class="text-center">
     <h1 class="text-4xl font-bold text-gray-800 mb-4">Welcome to the Home Page</h1>
     <p class="text-gray-600 text-lg">This is the home page of the website, styled with Tailwind CSS.</p>
