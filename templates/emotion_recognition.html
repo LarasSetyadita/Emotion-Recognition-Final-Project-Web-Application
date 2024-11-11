@@ -1,9 +1,33 @@
 {% extends "base.html" %}
 {% block title %}article{% endblock %}
 {% block content %}
+<body class="bg-gray-200">
+<div class="container mx-auto mt-12 p-6 bg-white shadow-lg rounded-lg">
+    <h2 class="text-2xl font-semibold text-center mb-6">Pilih Metode input yang Anda Inginkan</h2>
+
+    <div class="mb-4">
+        <label for="inputSource" class="block text-lg font-medium text-gray-700">Pilihan input</label>
+        <select id="inputSource" class="mt-2 block w-full p-2 border rounded-lg bg-gray-50">
+            <option>Camera</option>
+            <option>File</option>
+        </select>
+    </div>
+
+    <div id="cameraInput" class="mb-4 ">
+        <label>Capture Image from Camera</label>
+        <input type="file" accept="image/*" id="camera" capture="environment">
+    </div>
+
+    <div id="fileInput" class="mb-4">
+        <label class="">Uplad file</label>
+        <input type="file" accept="image/*" id="file" >
+    </div>
+</div>
+</body>
 <div class="text-center">
     <h1 class="text-4xl font-bold text-gray-800 mb-4">Welcome to the Home Page</h1>
     <p class="text-gray-600 text-lg">This is the home page of the website, styled with Tailwind CSS.</p>
     <a href="/about" class="mt-6 inline-block px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300">Learn More About Us</a>
 </div>
+
 {% endblock %}

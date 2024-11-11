@@ -1,23 +1,212 @@
 {% extends "base.html" %}
 {% block title %}article{% endblock %}
 {% block content %}
-  <!-- Container untuk dua kolom -->
-  <div class="flex flex-col md:flex-row w-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden">
 
-    <!-- Kolom kiri: Gambar -->
-    <div class="md:w-1/2">
-      <img src="./images/emotion_recognition.jpg/600x400" alt="Sample Image" class="w-full h-full object-cover">
+<div class="text-center mx-20">
+
+    <div class="py-5">
+        <h1 class="text-5xl font-bold text-gray-800 mb-4">Welcome</h1>
+        <h1 class="text-5xl font-bold text-gray-800 mb-4">To the Emotion Recognition Web App</h1>
     </div>
 
-    <!-- Kolom kanan: Teks -->
-    <div class="md:w-1/2 p-8 flex flex-col justify-center">
-      <h1 class="text-3xl font-bold text-gray-800 mb-4">Title Here</h1>
-      <p class="text-gray-600 text-lg">This is some text on the right side of the layout. You can add more content here, such as descriptions or any other information.</p>
-      <a href="#" class="mt-4 inline-block px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300">Read More</a>
+    <div class="flex justify-center m-4">
+        <img src="{{url_for('static', filename='./images/emotion_recognition.jpg')}}" alt="Emotion Recognition" class="w-1/2 h-auto ">
     </div>
-<div class="text-center">
-    <h1 class="text-4xl font-bold text-gray-800 mb-4">Welcome to the Home Page</h1>
-    <p class="text-gray-600 text-lg">This is the home page of the website, styled with Tailwind CSS.</p>
-    <a href="/about" class="mt-6 inline-block px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300">Learn More About Us</a>
+
+    <div class="justify-center py-10">
+        <h1 class="text-3xl font-bold p-7">What You Can Do?</h1>
+        <div class="flex justify-center space-x-7">
+
+            <div class="p-6 bg-gray-100 rounded-lg flex-1 shadow-xl">
+                <h2 class="font-bold text-xl m-3">Learn About Different Emotions</h2>
+                <p>Gain valuable insight into a wide range of emotion and
+                    how they impact your daily life</p>
+            </div>
+
+            <div class="p-6 bg-gray-100 rounded-lg flex-1 shadow-xl">
+                <h2 class="font-bold text-xl m-3">Recognize Your Current Emosions</h2>
+                <p>Identify and understand the emotion you are expericing right now
+                    with our feature</p>
+            </div>
+
+            <div class="p-6 bg-gray-100 rounded-lg flex-1 shadow-xl">
+                <h2 class="font-bold text-xl m-3">Get Personalize Advice</h2>
+                <p>
+                    Receive tailored suggestions on how to manage and cope with the emotions
+                    you're feeling, helping you find balance and wellbeing .
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="relative overflow-hidden py-7">
+        <h1 class="text-3xl font-bold p-7">Emotion Classifications</h1>
+        <!--articles-->
+        <div class="slides-container flex transition-transform duration-700 ease-in-out shadow-">
+            <!--emotion1-->
+            <div class="slide p-6 bg-gray-100 min-w-full rounded-lg flex shadow-xl">
+                <div class="w-1/2 flex justify-center items-center p-4">
+                    <img src="{{url_for('static', filename='./images/sadness.png')}}" alt="Emotion Recognition" class="w-1/2 h-auto ">
+                </div>
+                <div class="w-1/2 flex-col">
+                    <h1 class="font-bold text-xl m-3">Happiness</h1>
+                    <p class="m-2">The emotion of happiness is a feeling of joy, satisfaction, and
+                        well-being influenced by hormones, brain activity, and social
+                        factors. Hormones like dopamine, serotonin, endorphins, and
+                        oxytocin play key roles in creating happiness. The brain, especially
+                        the left prefrontal cortex and limbic system, is also active when one
+                        feels happy.
+                    <br><br>
+                        Positive social interactions boost oxytocin, supporting a sense of
+                        happiness. Physical activity increases endorphins, and meditation helps
+                        reduce stress. Habits like gratitude, mindfulness, and focusing on
+                        positive aspects have been shown to increase happiness.
+                    </p>
+                </div>
+            </div>
+
+            <!--emotion2-->
+            <div class="slide p-6 bg-gray-100 min-w-full rounded-lg flex shadow-xl">
+                <div class="w-1/2 flex justify-center items-center p-4">
+                    <img src="{{url_for('static', filename='./images/sadness.png')}}" alt="Emotion Recognition" class="w-1/2 h-auto ">
+                </div>
+                <div class="w-1/2 flex-col">
+                    <h1 class="font-bold text-xl m-3">Sadness</h1>
+                    <p class="m-2">
+                        Sadness is an emotional state marked by feelings of sorrow, disappointment,
+                        or loss, often resulting in lower energy and motivation. Linked to
+                        brain regions like the amygdala and anterior cingulate cortex, sadness
+                        affects levels of serotonin and dopamine, contributing to low mood.
+                        It can be triggered by experiences such as loss, rejection, or failure,
+                        which prompt emotional adjustment and foster empathy and resilience.
+                        Physical responses like tear production, slower heart rate, and
+                        fatigue are common and signal the need for social support, highlighting
+                        sadness’s role in strengthening human connections. Although difficult,
+                        sadness encourages reflection, problem-solving, and adaptation, serving
+                        as a catalyst for personal growth and emotional resilience. It’s a
+                        natural part of life that, while challenging, helps build
+                        self-awareness, empathy, and long-term emotional strength.
+                    </p>
+                </div>
+            </div>
+
+            <!--emotionn3-->
+            <div class="slide p-6 bg-gray-100 min-w-full rounded-lg flex shadow-xl">
+                <div class="w-1/2 flex justify-center items-center p-4">
+                    <img src="{{url_for('static', filename='./images/sadness.png')}}" alt="Emotion Recognition" class="w-1/2 h-auto ">
+                </div>
+                <div class="w-1/2 flex-col">
+                    <h1 class="font-bold text-xl m-3">Anger</h1>
+                    <p class="m-2">
+                        Anger is a strong emotional response to perceived threats, injustice, or
+                        frustration, often accompanied by irritation or hostility. It triggers the
+                        release of adrenaline and cortisol, preparing the body for a "fight or flight"
+                        reaction. Common triggers include unmet needs, physical discomfort, or stress,
+                        which can increase the intensity of anger. Physically, anger causes faster
+                        breathing, muscle tension, and heightened energy, sometimes leading to impulsive
+                        behavior.
+                        <br><br>
+                        Although anger can cause conflict if uncontrolled, it also serves as a motivator for
+                        addressing problems, setting boundaries, and seeking fairness. When managed,
+                        anger can lead to positive changes, clear communication, and personal growth,
+                        helping to maintain healthy relationships.
+                    </p>
+                </div>
+            </div>
+
+            <!--emotion 4-->
+            <div class="slide p-6 bg-gray-100 min-w-full rounded-lg flex shadow-xl">
+                <div class="w-1/2 flex justify-center items-center p-4">
+                    <img src="{{url_for('static', filename='./images/sadness.png')}}" alt="Emotion Recognition" class="w-1/2 h-auto ">
+                </div>
+                <div class="w-1/2 flex-col">
+                    <h1 class="font-bold text-xl m-3">Surprised</h1>
+                    <p class="m-2">
+                        Surprise is an emotion that occurs when something unexpected or out of the ordinary happens. It
+                        is a brief but intense reaction, often characterized by wide eyes, raised eyebrows,
+                        and an open mouth. This emotion is triggered by sudden events, such as unexpected
+                        news or unforeseen circumstances.
+                    <br><br>
+                        Neurologically, surprise is linked to the brain’s processing of novelty and
+                        violation of expectations. The amygdala and prefrontal cortex are involved in
+                        evaluating the unexpected event, while a burst of dopamine helps the brain adjust
+                        future expectations. Depending on the context, surprise can lead to joy or
+                        excitement if positive, or confusion or fear if negative.
+                    </p>
+                </div>
+            </div>
+
+            <!--emotion 5-->
+
+            <div class="slide p-6 bg-gray-100 min-w-full rounded-lg flex shadow-xl">
+                <div class="w-1/2 flex justify-center items-center p-4">
+                    <img src="{{url_for('static', filename='./images/sadness.png')}}" alt="Emotion Recognition" class="w-1/2 h-auto ">
+                </div>
+                <div class="w-1/2 flex-col">
+                    <h1 class="font-bold text-xl m-3">Neutral</h1>
+                    <p class="m-2">
+                        Neutral emotion is a state that is neither positive nor negative, characterized by
+                        a lack of strong feelings. It occurs when a person experiences events or
+                        situations that do not evoke intense reactions, often resulting in a calm or
+                        indifferent mood. This emotion is commonly experienced in everyday situations,
+                        where there is no significant impact on the person’s emotional state.
+                    <br><br>
+                        Neurologically, neutral emotions are linked to a balanced state of brain activity,
+                        where there is no strong activation in areas associated with pleasure or
+                        discomfort. Unlike other emotions, neutral feelings do not lead to noticeable
+                        changes in body language or facial expressions. Neutrality is often seen as a
+                        baseline or resting state, allowing individuals to respond to more extreme
+                        emotions as they arise.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-5">
+            <button id="prevSlide" class="bg-gray-500 text-white px-3 mx-4 py-1 rounded-full hover:bg-gray-100">&lt;</button>
+            <button id="nextSlide" class="bg-gray-500 text-white px-3 mx-4 py-1 rounded-full hover:bg-gray-100">&gt;</button>
+        </div>
+    </div>
+    <div class="pb-20">
+        <a href="/emotion_recognition" class="mt-6 inline-block bg-gray-700 hover:bg-gray-300 text-white text-xl font-bold px-6 py-2 rounded-full transition">Start</a>
+    </div>
+
+
+
+    <script>
+        let currentIndex = 0;
+        const slidesContainer = document.querySelector('.slides-container');
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(index) {
+            slidesContainer.style.transform = `translateX(-${index * 100}%)`;
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slides.length;
+            showSlide(currentIndex);
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            showSlides(currentIndex);
+        }
+
+        document.getElementById('nextSlide').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % slides.length;
+            showSlide(currentIndex);
+        });
+
+        document.getElementById('prevSlide').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            showSlide(currentIndex);
+        });
+
+        setInterval(nextSlide, 5000);
+        showSlide(currentIndex);
+    </script>
+
 </div>
 {% endblock %}
