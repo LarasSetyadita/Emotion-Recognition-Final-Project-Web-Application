@@ -47,7 +47,7 @@
             <!--emotion1-->
             <div class="slide p-6 bg-gray-100 min-w-full rounded-lg flex shadow-xl">
                 <div class="w-1/2 flex justify-center items-center p-4">
-                    <img src="{{url_for('static', filename='./images/sadness.png')}}" alt="Emotion Recognition" class="w-1/2 h-auto ">
+                    <img src="{{url_for('static', filename='./images/happiness.png')}}" alt="Emotion Recognition" class="w-1/2 h-auto ">
                 </div>
                 <div class="w-1/2 flex-col">
                     <h1 class="font-bold text-xl m-3">Happiness</h1>
@@ -94,7 +94,7 @@
             <!--emotionn3-->
             <div class="slide p-6 bg-gray-100 min-w-full rounded-lg flex shadow-xl">
                 <div class="w-1/2 flex justify-center items-center p-4">
-                    <img src="{{url_for('static', filename='./images/sadness.png')}}" alt="Emotion Recognition" class="w-1/2 h-auto ">
+                    <img src="{{url_for('static', filename='./images/anger.png')}}" alt="Emotion Recognition" class="w-1/2 h-auto ">
                 </div>
                 <div class="w-1/2 flex-col">
                     <h1 class="font-bold text-xl m-3">Anger</h1>
@@ -118,7 +118,7 @@
             <!--emotion 4-->
             <div class="slide p-6 bg-gray-100 min-w-full rounded-lg flex shadow-xl">
                 <div class="w-1/2 flex justify-center items-center p-4">
-                    <img src="{{url_for('static', filename='./images/sadness.png')}}" alt="Emotion Recognition" class="w-1/2 h-auto ">
+                    <img src="{{url_for('static', filename='./images/surprised.png')}}" alt="Emotion Recognition" class="w-1/2 h-auto ">
                 </div>
                 <div class="w-1/2 flex-col">
                     <h1 class="font-bold text-xl m-3">Surprised</h1>
@@ -141,7 +141,7 @@
 
             <div class="slide p-6 bg-gray-100 min-w-full rounded-lg flex shadow-xl">
                 <div class="w-1/2 flex justify-center items-center p-4">
-                    <img src="{{url_for('static', filename='./images/sadness.png')}}" alt="Emotion Recognition" class="w-1/2 h-auto ">
+                    <img src="{{url_for('static', filename='./images/neutral.png')}}" alt="Emotion Recognition" class="w-1/2 h-auto ">
                 </div>
                 <div class="w-1/2 flex-col">
                     <h1 class="font-bold text-xl m-3">Neutral</h1>
@@ -175,37 +175,8 @@
 
 
 
-    <script>
-        let currentIndex = 0;
-        const slidesContainer = document.querySelector('.slides-container');
-        const slides = document.querySelectorAll('.slide');
+    <script src="{{url_for('static', filename='./javascript/home.js')}}">
 
-        function showSlide(index) {
-            slidesContainer.style.transform = `translateX(-${index * 100}%)`;
-        }
-
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % slides.length;
-            showSlide(currentIndex);
-        }
-
-        function prevSlide() {
-            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-            showSlides(currentIndex);
-        }
-
-        document.getElementById('nextSlide').addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % slides.length;
-            showSlide(currentIndex);
-        });
-
-        document.getElementById('prevSlide').addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-            showSlide(currentIndex);
-        });
-
-        setInterval(nextSlide, 5000);
-        showSlide(currentIndex);
     </script>
 
 </div>
