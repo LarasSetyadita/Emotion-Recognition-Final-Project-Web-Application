@@ -1,33 +1,43 @@
 {% extends "base.html" %}
-{% block title %}article{% endblock %}
+{% block title %}Article{% endblock %}
 {% block content %}
 <body class="bg-gray-200">
-<div class="container mx-auto mt-12 p-6 bg-white shadow-lg rounded-lg">
-    <h2 class="text-2xl font-semibold text-center mb-6">Pilih Metode input yang Anda Inginkan</h2>
+    <div class="container justify-center mx-auto mt-12 p-6 bg-white shadow-lg rounded-lg">
+        <h2 class="text-2xl font-semibold text-center mb-6">Pilih Metode Input yang Anda Inginkan</h2>
 
-    <div class="mb-4">
-        <label for="inputSource" class="block text-lg font-medium text-gray-700">Pilihan input</label>
-        <select id="inputSource" class="mt-2 block w-full p-2 border rounded-lg bg-gray-50">
-            <option>Camera</option>
-            <option>File</option>
-        </select>
+        <!-- Dropdown Pilihan Input -->
+        <div class="mb-6">
+            <label for="inputSource" class="block text-lg font-medium text-gray-700 mb-2">Pilihan Input</label>
+            <select id="inputSource" class="block w-full p-2 border rounded-lg bg-gray-50">
+                <option value="Camera" selected>Camera</option>
+                <option value="File">File</option>
+            </select>
+        </div>
+
+        <!-- Input Kamera -->
+        <div id="cameraInput" class="text-center mb-6 w-3/4 sm:w-1/2 mx-auto">
+            <h1 class="text-2xl font-bold mb-4">Camera Input</h1>
+            <div class="relative w-full aspect-square border-2 border-gray-500 mx-auto">
+                <video id="video" class="absolute top-0 left-0 w-full h-full object-cover" autoplay></video>
+            </div>
+            <button id="capture" class="mt-4 bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-300">
+                Capture Photo
+            </button>
+            <canvas id="canvas" class="hidden border-2 border-gray-500 w-full aspect-square mt-4"></canvas>
+        </div>
+
+        <!-- Input File -->
+        <div id="fileInput" class="hidden mb-6">
+            <label for="file" class="block text-lg font-medium text-gray-700 mb-2">Upload File</label>
+            <input type="file" accept="image/*" id="file" class="block w-full p-2 border rounded-lg bg-gray-50">
+        </div>
     </div>
 
-    <div id="cameraInput" class="mb-4 ">
-        <label>Capture Image from Camera</label>
-        <input type="file" accept="image/*" id="camera" capture="environment">
+    <!-- Gambar Hasil -->
+    <div id="captured" class="container mx-auto mt-12 p-6 bg-white shadow-lg rounded-lg hidden">
+        <img id="capturedImage" class="w-full aspect-square object-cover mx-auto sm:w-1/2 mx-auto" alt="Captured Image">
     </div>
 
-    <div id="fileInput" class="mb-4">
-        <label class="">Uplad file</label>
-        <input type="file" accept="image/*" id="file" >
-    </div>
-</div>
+    <script src="{{ url_for('static', filename='./javascript/emotion_recognition.js') }}"></script>
 </body>
-<div class="text-center">
-    <h1 class="text-4xl font-bold text-gray-800 mb-4">Welcome to the Home Page</h1>
-    <p class="text-gray-600 text-lg">This is the home page of the website, styled with Tailwind CSS.</p>
-    <a href="/about" class="mt-6 inline-block px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300">Learn More About Us</a>
-</div>
-
 {% endblock %}
