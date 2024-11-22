@@ -2,46 +2,64 @@
 {% block title %}article{% endblock %}
 {% block content %}
 
-<div class="text-center mx-20 ">
+<div class="">
 
-    <div class="py-5">
-        <h1 class="text-5xl font-bold text-gray-800 mb-4">Welcome</h1>
-        <h1 class="text-5xl font-bold text-gray-800 mb-4">To the Emotion Recognition Web App</h1>
-    </div>
-
-    <div class="flex justify-center m-4">
-        <img src="{{url_for('static', filename='./images/emotion_recognition.jpg')}}" alt="Emotion Recognition" class="w-1/2 h-auto ">
-    </div>
-
-    <div class="justify-center py-10">
-        <h1 class="text-3xl font-bold p-7">What You Can Do?</h1>
-        <div class="flex justify-center space-x-7">
-
-            <div class="p-6 bg-gray-100 rounded-lg flex-1 shadow-xl">
-                <h2 class="font-bold text-xl m-3">Learn About Different Emotions</h2>
-                <p>Gain valuable insight into a wide range of emotion and
-                    how they impact your daily life</p>
+    <div class="flex space-x-7 h-[600px] mb-10  px-40">
+        <!-- Bagian Gambar -->
+        <div class="flex items-center justify-center">
+            <img src="{{url_for('static', filename='./images/emotion_recognition.png')}}"
+                 alt="Emotion Recognition"
+                 class="w-[700px] h-auto max-w-full">
+        </div>
+        <div></div>
+        <!-- Bagian Teks -->
+        <div class="flex items-center justify-center">
+            <div class="">
+                <div>
+                    <h1 class="text-5xl font-bold text-gray-800 mb-4">Welcome</h1>
+                    <h2 class="text-4xl font-semibold text-gray-700">To the Emotion Recognition Web App</h2>
+                </div>
+                <div>
+                    <a href="/emotion_recognition" class="mt-6 inline-block bg-gray-700 hover:bg-gray-300 text-white py-2 px-4 rounded-lg transition">Start Analysis</a>
+                    <a href="#learn_more" class="mt-6 inline-block bg-yellow-300 hover:bg-gray-100 text-gray-700 px-4 py-2 rounded-lg transition">Learn More</a>
+                </div>
             </div>
-
-            <div class="p-6 bg-gray-100 rounded-lg flex-1 shadow-xl">
-                <h2 class="font-bold text-xl m-3">Recognize Your Current Emosions</h2>
-                <p>Identify and understand the emotion you are expericing right now
-                    with our feature</p>
-            </div>
-
-            <div class="p-6 bg-gray-100 rounded-lg flex-1 shadow-xl">
-                <h2 class="font-bold text-xl m-3">Get Personalize Advice</h2>
-                <p>
-                    Receive tailored suggestions on how to manage and cope with the emotions
-                    you're feeling, helping you find balance and wellbeing .
-                </p>
-            </div>
-
         </div>
     </div>
 
-    <div class="relative overflow-hidden py-7">
-        <h1 class="text-3xl font-bold p-7">Emotion Classifications</h1>
+
+
+    <div id="learn_more" class="flex justify-center items-center py-12 text-center bg-gray-700 px-40">
+        <div>
+            <h1 class="text-4xl font-bold p-5 text-white">What You Can Do?</h1>
+            <div class="flex justify-center space-x-7 p-5">
+
+                <div class="p-6 bg-gray-100 rounded-lg flex-1 shadow-xl">
+                    <h2 class="font-bold text-xl m-3">Learn About Different Emotions</h2>
+                    <p>Gain valuable insight into a wide range of emotion and
+                        how they impact your daily life</p>
+                </div>
+
+                <div class="p-6 bg-gray-100 rounded-lg flex-1 shadow-xl">
+                    <h2 class="font-bold text-xl m-3">Recognize Your Current Emosions</h2>
+                    <p>Identify and understand the emotion you are expericing right now
+                        with our feature</p>
+                </div>
+
+                <div class="p-6 bg-gray-100 rounded-lg flex-1 shadow-xl">
+                    <h2 class="font-bold text-xl m-3">Get Personalize Advice</h2>
+                    <p>
+                        Receive tailored suggestions on how to manage and cope with the emotions
+                        you're feeling, helping you find balance and wellbeing .
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="relative overflow-hidden py-12 text-center mt-10 mx-40">
+        <h1 class="text-3xl font-bold p-12">Emotion Classifications</h1>
         <!--articles-->
         <div class="slides-container flex transition-transform duration-700 ease-in-out shadow-">
             <!--emotion1-->
@@ -164,14 +182,24 @@
 
         </div>
 
-        <div class="mt-5">
-            <button id="prevSlide" class="bg-gray-500 text-white px-3 mx-4 py-1 rounded-full hover:bg-gray-100">&lt;</button>
-            <button id="nextSlide" class="bg-gray-500 text-white px-3 mx-4 py-1 rounded-full hover:bg-gray-100">&gt;</button>
+        <div class="py-10">
+            <button id="prevSlide" class="bg-yellow-300 text-gray-700 px-3 mx-4 py-1 rounded-full hover:bg-gray-100">&lt;</button>
+            <button id="nextSlide" class="bg-yellow-300 text-gray-700 px-3 mx-4 py-1 rounded-full hover:bg-gray-100">&gt;</button>
         </div>
+        <a href="/emotion_recognition" class="mt-6 inline-block bg-gray-700 hover:bg-gray-300 text-white px-4 py-1 rounded-lg transition">Start Analysis</a>
     </div>
-    <div class="pb-20">
-        <a href="/emotion_recognition" class="mt-6 inline-block bg-gray-700 hover:bg-gray-300 text-white text-xl font-bold px-6 py-2 rounded-full transition">Start</a>
+
+    <div class="pb-20 text-center">
+
     </div>
+
+
+    <style>
+        /* Tambahkan scroll behavior untuk transisi scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 
 
 
