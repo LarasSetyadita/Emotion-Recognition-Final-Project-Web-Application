@@ -4,10 +4,12 @@ const captureButton = document.getElementById('capture');
 const capturedImage = document.getElementById('capturedImage');
 const captured = document.getElementById('captured');
 const fileInput = document.getElementById('fileInput');
-const inputSource = document.getElementById('inputSource');
-const file = document.getElementById('file');
+const cameraInput = document.getElementById('cameraInput');
+const fileUpload = document.getElementById('filei');
+const cameraBtn = document.getElementById('CameraBtn');
+const fileBtn = document.getElementById('FileBtn');
 
-// Fungsi untuk meminta akses kamera
+// Fungsi untuk memulai kamera
 async function startCamera() {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -17,55 +19,74 @@ async function startCamera() {
     }
 }
 
-// Fungsi untuk menangkap gambar dari kamera
-captureButton.addEventListener('click', () => {
-    const context = canvas.getContext('2d');
-    const size = Math.min(video.videoWidth, video.videoHeight); // Dimensi persegi berdasarkan ukuran terkecil
-    canvas.width = size;
-    canvas.height = size;
-    context.drawImage(
-        video,
-        (video.videoWidth - size) / 2, // Crop horizontal dari tengah
-        (video.videoHeight - size) / 2, // Crop vertikal dari tengah
-        size,
-        size,
-        0,
-        0,
-        size,
-        size
-    );
+// Fungsi untuk menghentikan kamera
+function stopCamera() {
+    if (video.srcObject) {
+        video.srcObject.getTracks().forEach(track => track.stop());
+    }
+}
 
+// Tombol Kamera
+cameraBtn.addEventListener('click', () => {
+    fileInput.classList.add('hidden');
+    cameraInput.classList.remove('hidden');
+    captured.classList.add('hidden');
+    startCamera();
+});
+
+// Tombol File
+fileBtn.addEventListener('click', () => {
+    stopCamera();
+    cameraInput.classList.add('hidden');
+    fileInput.classList.remove('hidden');
+    captured.classList.add('hidden');
+});
+
+// Capture Gambar
+captureButton.addEventListener('click', async () => {
+    const context = canvas.getContext('2d');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
     const imageUrl = canvas.toDataURL('image/png');
     capturedImage.src = imageUrl;
     captured.classList.remove('hidden');
+
+    // Kirim gambar ke server untuk analisis
+    const response = await fetch('/detection', {
+        method: 'POST',
+        body: JSON.stringify({ image: imageUrl }),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    const result = await response.json();
+    displayResult(result);
 });
 
-// Fungsi untuk mengganti input antara kamera dan file
-inputSource.addEventListener('change', () => {
-    if (inputSource.value === 'Camera') {
-        fileInput.classList.add('hidden');
-        document.getElementById('cameraInput').classList.remove('hidden');
-        startCamera();
-    } else if (inputSource.value === 'File') {
-        fileInput.classList.remove('hidden');
-        document.getElementById('cameraInput').classList.add('hidden');
-        const stream = video.srcObject;
-        if (stream) {
-            const tracks = stream.getTracks();
-            tracks.forEach(track => track.stop());
-        }
-        video.srcObject = null;
+// Menampilkan hasil analisis
+function displayResult(result) {
+    const resultDiv = document.getElementById('result');
+    if (result.error) {
+        resultDiv.innerHTML = `<p>${result.error}</p>`;
+    } else {
+        resultDiv.innerHTML = `
+            <p><strong>Emotion:</strong> ${result.emotion}</p>
+            <p><strong>Confidence:</strong> ${result.confidence}%</p>
+        `;
     }
-});
+}
 
-// Fungsi untuk menampilkan gambar hasil upload file
-file.addEventListener('change', () => {
-    const fileReader = new FileReader();
-    fileReader.onload = function (e) {
+
+// Upload File
+fileUpload.addEventListener('change', () => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
         capturedImage.src = e.target.result;
         captured.classList.remove('hidden');
     };
-    fileReader.readAsDataURL(file.files[0]);
+    reader.readAsDataURL(fileUpload.files[0]);
 });
 
 // Memulai kamera saat halaman dimuat

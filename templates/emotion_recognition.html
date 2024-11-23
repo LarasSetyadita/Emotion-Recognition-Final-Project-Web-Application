@@ -1,43 +1,45 @@
 {% extends "base.html" %}
 {% block title %}Article{% endblock %}
 {% block content %}
-<body class="bg-gray-200">
-    <div class="container justify-center mx-auto mt-12 p-6 bg-white shadow-lg rounded-lg">
-        <h2 class="text-2xl font-semibold text-center mb-6">Pilih Metode Input yang Anda Inginkan</h2>
+<div class="mx-20">
 
-        <!-- Dropdown Pilihan Input -->
-        <div class="mb-6">
-            <label for="inputSource" class="block text-lg font-medium text-gray-700 mb-2">Pilihan Input</label>
-            <select id="inputSource" class="block w-full p-2 border rounded-lg bg-gray-50">
-                <option value="Camera" selected>Camera</option>
-                <option value="File">File</option>
-            </select>
-        </div>
+    <div id="fileInput" class="text-center px-40">
+        <h1 class="text-3xl font-bold mb-10 text-gray-700">Upload File</h1>
+        <div class="container justify-center mx-auto min-w-full mt-12 mb-12 p-7 bg-gray-200 shadow-lg rounded-lg">
+            <!-- Input File -->
+            <div class="text-center mx-10 ">
+                <div class="items-center ">
+                    <!-- Petunjuk -->
+                    <div class="text-center mb-6 w-full sm:w-1/2 sm:mb-0 bg-lightgreen w-full mb-10 relative border-2 border-darkgreen mx-auto rounded-lg">
+                        <h2 class="text-xl font-semibold text-gray-700 mb-4">Petunjuk</h2>
+                        <p class="text-sm text-gray-600">
+                            Pilih file gambar dari perangkat Anda untuk mengunggah.
+                            Format yang didukung: <span class="font-medium">JPG, PNG</span>.
+                        </p>
+                    </div>
 
-        <!-- Input Kamera -->
-        <div id="cameraInput" class="text-center mb-6 w-3/4 sm:w-1/2 mx-auto">
-            <h1 class="text-2xl font-bold mb-4">Camera Input</h1>
-            <div class="relative w-full aspect-square border-2 border-gray-500 mx-auto">
-                <video id="video" class="absolute top-0 left-0 w-full h-full object-cover" autoplay></video>
+                    <!-- Input File -->
+                    <div class="text-center mt-6 w-full sm:w-1/2 sm:mb-0  w-full mb-10 relative  mx-auto rounded-lg">
+                        <input
+                            type="file"
+                            accept="image/*"
+                            id="filei"
+                            class="block w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        >
+                        <p class="mt-2 text-sm text-gray-500">Maksimal ukuran file: 5MB.</p>
+                    </div>
+                </div>
             </div>
-            <button id="capture" class="mt-4 bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-300">
-                Capture Photo
-            </button>
-            <canvas id="canvas" class="hidden border-2 border-gray-500 w-full aspect-square mt-4"></canvas>
-        </div>
-
-        <!-- Input File -->
-        <div id="fileInput" class="hidden mb-6">
-            <label for="file" class="block text-lg font-medium text-gray-700 mb-2">Upload File</label>
-            <input type="file" accept="image/*" id="file" class="block w-full p-2 border rounded-lg bg-gray-50">
         </div>
     </div>
 
     <!-- Gambar Hasil -->
-    <div id="captured" class="container mx-auto mt-12 p-6 bg-white shadow-lg rounded-lg hidden">
-        <img id="capturedImage" class="w-full aspect-square object-cover mx-auto sm:w-1/2 mx-auto" alt="Captured Image">
+    <div id="captured" class="container mx-auto mt-12 p-6 hidden mx-10 text-center ">
+        <h1 class="text-3xl font-bold mb-10 text-gray-700">Preview</h1>
+        <img id="capturedImage" class="w-1/2 aspect-square object-cover mx-auto sm:w-1/2 mx-auto rounded-lg" alt="Captured Image">
+        <a href="/result" class="mt-4 inline-block bg-gray-700 hover:bg-gray-300 text-white rounded-lg px-4 py-2">Analyze</a>
     </div>
 
     <script src="{{ url_for('static', filename='./javascript/emotion_recognition.js') }}"></script>
-</body>
+</div>
 {% endblock %}

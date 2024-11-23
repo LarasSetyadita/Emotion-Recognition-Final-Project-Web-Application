@@ -4,19 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Website{% endblock %}</title>
-    <!-- Tailwind CSS CDN -->
-    <!--<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">-->
     <link rel="stylesheet" href="static/css/output.css"/>
 </head>
-<body>
+<body class="flex flex-col min-h-screen justify-between">
+
     <!-- Navigation Bar -->
-    <nav class="bg-gray-800 p-4">
-        <div class="container mx-auto flex justify-between items-center mx-10">
-            <a class="text-white font-bold text-xl" href="/">Emotion Recognition</a>
+    <nav class="bg-white p-4 px-20">
+        <div class="container mx-auto flex justify-between items-center">
+            <a class="text-gray-800 font-bold text-4xl" href="/">Emotion Recognition</a>
             <div class="space-x-4">
-                <a class="text-white hover:text-gray-500" href="/">Home</a>
-                <a class="text-white hover:text-gray-500" href="/emotion_recognition">Emotion Recognition</a>
-                <a class="text-white hover:text-gray-500" href="/article">Article</a>
+                <a class="text-gray-800 hover:text-gray-500 text-xl" href="/">Home</a>
+                <a class="text-gray-800 hover:text-gray-500 text-xl" href="/emotion_recognition">Emotion Recognition</a>
+                <a class="text-gray-800 hover:text-gray-500 text-xl" href="/article">Article</a>
             </div>
         </div>
     </nav>
@@ -25,5 +24,18 @@
     <div class="container mx-auto mt-8">
         {% block content %}{% endblock %}
     </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-700 text-gray-700 py-2">
+        <div class="max-w-7xl mx-auto px-6 flex justify-center">
+            <!-- Konten Footer, pastikan text-center dan justify-center digunakan untuk memastikan elemen berada di tengah -->
+            <div class="text-center">
+                <h4 class="text-xs font-bold text-white">myWebsite</h4>
+                <p class="mt-2 text-xs font-bold text-white">@ 2024 My Website. All rights reserved</p>
+                <p class="text-xs font-bold text-white">Images by <a href="https://www.freepik.com" target="_blank" class="text-xs font-italic hover:underline">Freepik</a></p>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Result</title>
+</head>
+<body>
+    <h1>Analysis Result</h1>
+    {% if result.error %}
+        <p>{{ result.error }}</p>
+    {% else %}
+        <img src="{{ image_path }}" alt="Uploaded Image" style="max-width: 300px;">
+        <p><strong>Detected Emotion:</strong> {{ result.emotion }}</p>
+        <p><strong>Confidence:</strong> {{ (result.confidence * 100)|round(2) }}%</p>
+    {% endif %}
+    <a href="/emotion_recognition">Analyze Another Image</a>
+</body>
+</html>
