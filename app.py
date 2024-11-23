@@ -27,54 +27,55 @@ HANDLING_TIPS = {
 
 # Fungsi untuk memproses gambar sebelum prediksi
 def preprocess_image(image):
-    # Ubah gambar ke format RGB dan ubah ukuran sesuai dengan model yang digunakan
-    image = image.convert('RGB')
     image = image.resize((224, 224))  # Ganti ukuran sesuai kebutuhan model Anda
     image_array = np.array(image) / 255.0  # Normalisasi
     image_array = np.expand_dims(image_array, axis=0)  # Tambahkan dimensi batch
     return image_array
 
-@app.route('/detection', methods=['POST'])
+
+@app.route('/detection', methods=['GET', 'POST'])
 def detection():
     if request.method == 'POST':
-        data = request.get_json()
+        # Periksa apakah file diunggah
+        file = request.files.get('file')
+        if not file or file.filename == '':
+            return render_template(error="No file selected")
 
-        # Mengecek apakah gambar yang dikirim adalah base64 (kamera) atau file (upload)
-        if data and 'image' in data:  # Jika gambar dari kamera dalam format base64
-            image_data = data['image']
-            img_data = base64.b64decode(image_data.split(',')[1])  # Menghapus 'data:image/png;base64,' jika ada
-            img = Image.open(io.BytesIO(img_data))
-        else:  # Jika gambar diunggah sebagai file
-            file = request.files.get('file')
-            if file:
-                img = Image.open(file.stream)
+        try:
+            # Proses gambar langsung dari request.files tanpa menyimpannya ke disk
+            image = Image.open(file.stream)  # Membaca gambar dari stream (memori)
+            processed_image = preprocess_image(image)
 
-        # Preprocess gambar
-        processed_image = preprocess_image(img)
+            # Prediksi
+            predictions = model.predict(processed_image)
+            predicted_class_index = np.argmax(predictions, axis=1)[0]
+            predicted_probability = predictions[0][predicted_class_index] * 100  # Akurasi untuk kelas prediksi terpilih
+            predicted_class_name = EMOTIONS[predicted_class_index]
+            handling_tips = HANDLING_TIPS[predicted_class_name]
+            confidence = float(np.max(predictions))
 
-        # Melakukan prediksi dengan model
-        predictions = model.predict(processed_image)
-        predicted_class_index = np.argmax(predictions, axis=1)[0]
-        predicted_class_name = EMOTIONS[predicted_class_index]
-        predicted_probability = predictions[0][predicted_class_index] * 100
-        confidence = float(np.max(predictions))
-        handling_tips = HANDLING_TIPS[predicted_class_name]
+            # Konversi gambar ke format base64 agar bisa ditampilkan di web
+            img_io = io.BytesIO()
+            image.save(img_io, 'PNG')  # Menyimpan gambar dalam format PNG
+            img_io.seek(0)
+            img_base64 = base64.b64encode(img_io.getvalue()).decode('utf-8')
 
-        # Konversi gambar ke format base64 untuk dikirim ke frontend
-        img_io = io.BytesIO()
-        img.save(img_io, 'PNG')
-        img_io.seek(0)
-        img_base64 = base64.b64encode(img_io.getvalue()).decode('utf-8')
+            # Render hasil di halaman yang sama
+            return render_template(
+                'emotion_recognition.html',
+                predicted_class=predicted_class_name,
+                handling_tip=handling_tips,
+                confidence_score=confidence,
+                file_uploaded=True,
+                img_base64=img_base64,  # Gambar dalam base64 untuk ditampilkan
+                predicted_probability=predicted_probability,
+                probabilities={EMOTIONS[i]: predictions[0][i] * 100 for i in range(len(EMOTIONS))}
+            )
+        except Exception as e:
+            return render_template('base.html', error=f"Error processing image: {str(e)}")
 
-        # Mengirimkan hasil prediksi dan gambar kembali ke frontend
-        return jsonify({
-            'emotion': predicted_class_name,
-            'confidence': confidence,
-            'img_base64': img_base64,
-            'handling_tip': handling_tips,
-            'predicted_probability': predicted_probability,
-            'probabilities': {EMOTIONS[i]: predictions[0][i] * 100 for i in range(len(EMOTIONS))}
-        })
+    # Jika GET request, tampilkan formulir upload
+    return render_template('emotion_recognition.html')
 
 
 @app.route('/')
