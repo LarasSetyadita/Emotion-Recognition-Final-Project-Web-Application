@@ -54,7 +54,7 @@
             <div class="bg-white flex items-center justify-center p-4 rounded-2xl w-1/2 aspect-square">
                 <!-- Kotak abu-abu berbentuk persegi -->
                 <div class="bg-gray-200 text-gray-700 rounded-2xl shadow-lg w-full h-full flex flex-col justify-center p-6">
-                    <!--{% if confidence_score < 80 %}
+                    {% if confidence_score < 80 %}
                         <div class="text-xl font-bold mb-4 p-2 border-2 w-full rounded-lg border-red-700 bg-red-100 text-black text-5xl">
                             Emotion not found
                         </div>
@@ -62,7 +62,7 @@
                             <div class="text-black text-">Please upload a photo with better quality</div>
 
                         </div>
-                    {% else %}-->
+                    {% else %}
                         <div class="flex space-x-4">
                             <div class="text-xl font-bold mb-4 p-2 border-2 w-full rounded-lg border-gray-700
                                 {% if predicted_class == 'Anger' %}
@@ -86,6 +86,7 @@
                             <div class="text-xl font-bold mb-4 p-2 border-2 bg-gray-700 border-gray-700 rounded-lg text-white ">
                                 {{ confidence_score | round(2) }}%
                             </div>
+
                         </div>
                         <div class="flex flex-wrap space-x-4">
                             {% for emotion, probability in probabilities.items() %}
@@ -112,7 +113,7 @@
                             <div class="my-2 font-semibold text-lg">Tips :</div>
                             <div>{{ handling_tip }}</div>
                         </div>
-                   <!-- {% endif %} -->
+                   {% endif %}
                 </div>
             </div>
         </div>
