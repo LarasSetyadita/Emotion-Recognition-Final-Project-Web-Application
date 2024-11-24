@@ -1,119 +1,140 @@
 {% extends "base.html" %}
-{% block title %}Article{% endblock %}
+{% block title %}Emotion Recognition{% endblock %}
 {% block content %}
-<div class="max-w-7xl mx-auto py-16 space-y-12">
-    <div class="flex space-x-12 items-center">
-        <div class="w-2 h-16 bg-[#FFCB39] rounded-lg"></div>
-        <div class="grid-rows-2">
-            <div class="text-xl font-semibold">
-                Deteksi Penyakit
-            </div>
-            <div>
-                Periksa penyakit tanaman jagung Anda!
-            </div>
+<div class="max-w-7xl mx-auto py-16 space-y-12 text-center ">
+    <!-- Header -->
+    <h1 class="text-4xl font-bold text-gray-700">Emotion Recognition</h1>
+
+    <!-- Form Upload -->
+    <div class="px-20 mb-20">
+        <div class="mx-auto bg-gray-700 rounded-2xl p-8 shadow-xl mb-20 mt-10 mx-20">
+            <form id="upload-form" action="/detection" method="POST" enctype="multipart/form-data" class="space-y-6">
+                <div class="font-bold text-lg text-white">Upload a Photo</div>
+                <div class="w-full bg-white rounded-lg border-2 flex flex-col items-center justify-center space-y-4">
+
+                    <span class="font-medium">Upload face image for emotion recognition</span>
+                    <div class="font-light text-sm p-3">Add a photo here, maximum 10MB</div>
+                    <img src="{{ url_for('static', filename='./images/upload-picture.png') }}" alt="Emotion Recognition" style="max-width: 100px; height: auto;">
+
+                    <!-- Tombol kustom untuk memilih file -->
+                    <label for="file-upload" class="bg-gray-700 text-white px-4 py-1 rounded-lg hover:bg-gray-300 cursor-pointer m-3">
+                        Choose File
+                    </label>
+                    <!-- Input file tersembunyi -->
+                    <input type="file" name="file" id="file-upload" class="hidden" />
+                    <!-- Informasi file yang dipilih -->
+                    <span id="file-name" class="text-gray-500 text-sm"></span>
+                    <!-- Tanda file berhasil diunggah -->
+                    <div id="upload-success" class="hidden text-green-500 text-sm font-bold mt-2">File uploaded successfully!</div>
+                </div>
+
+                <button type="submit" class="bg-[#FFCB39] text-gray-700 px-4 py-2 rounded-lg hover:bg-[#E6B832]">
+                    Analyze Emotion
+                </button>
+            </form>
+
+            <!-- Tampilkan Error -->
+            {% if error %}
+                <div class="text-red-500 mt-4">{{ error }}</div>
+            {% endif %}
         </div>
     </div>
-    <div class="max-w-5xl mx-auto bg-[#E6F1E8] rounded-2xl p-8 space-y-4 shadow-xl mb-20 mt-10">
-        <form id="upload-form" action="/detection" method="POST" enctype="multipart/form-data" class="space-y-6">
-            <div class="font-bold text-lg">Deteksi</div>
-            <div class="font-light text-sm">Tambahkan foto di sini, maksimal 10MB</div>
-            <div class="w-full h-80 bg-white rounded-lg border-2 border-dashed border-[#FFCB39] flex flex-col items-center justify-center space-y-4">
-                <span class="font-medium">Upload foto daun jagung yang ingin dideteksi</span>
-                <!-- Tombol kustom untuk memilih file -->
-                <label for="file-upload" class="bg-white text-[#FFCB39] border-2 border-[#FFCB39] font-medium px-4 py-2 rounded-lg hover:bg-[#FFCB39] hover:text-white cursor-pointer">
-                Pilih File
-                </label>
-                <!-- Input file tersembunyi -->
-                <input type="file" name="file" id="file-upload" class="hidden" />
-                <!-- Informasi file yang dipilih -->
-                <span id="file-name" class="text-gray-500 text-sm"></span>
-            </div>
-            <button type="submit" class="bg-[#FFCB39] text-white font-medium px-6 py-3 rounded-lg hover:bg-[#E6B832]">
-                Deteksi
-            </button>
-        </form>
 
-        <!-- Tampilkan Error -->
-        {% if error %}
-            <div class="text-red-500 mt-4">{{ error }}</div>
-        {% endif %}
-    </div>
-
-    <!-- Tampilkan Hasil Deteksi -->
+    <!-- Hasil Prediksi -->
     {% if predicted_class %}
-    <div class="flex space-x-12 items-center pt-12">
-        <div class="w-2 h-16 bg-[#FFCB39] rounded-lg"></div>
-        <div class="grid-rows-2">
-            <div class="text-xl font-semibold">
-                Deteksi Penyakit
+    <div class="py-12">
+        <h1 class="text-4xl font-bold text-gray-700 p-5">Detection Result</h1>
+
+        <div class="flex space-x-7 px-20">
+            <!-- Gambar -->
+            <div class="bg-white flex items-center justify-center p-4 rounded-2xl w-1/2 aspect-square">
+                <img src="data:image/png;base64,{{ img_base64 }}" alt="Uploaded Image" class="shadow-lg w-full h-full object-cover rounded-lg">
             </div>
-            <div>
-                Hasil Diagnosa
+            <!-- Detail Prediksi -->
+            <div class="bg-white flex items-center justify-center p-4 rounded-2xl w-1/2 aspect-square">
+                <!-- Kotak abu-abu berbentuk persegi -->
+                <div class="bg-gray-200 text-gray-700 rounded-2xl shadow-lg w-full h-full flex flex-col justify-center p-6">
+                    <!--{% if confidence_score < 80 %}
+                        <div class="text-xl font-bold mb-4 p-2 border-2 w-full rounded-lg border-red-700 bg-red-100 text-black text-5xl">
+                            Emotion not found
+                        </div>
+                        <div class="mb-4 p-2 border-2 h-full rounded-lg border-gray-700 flex items-center justify-center">
+                            <div class="text-black text-">Please upload a photo with better quality</div>
+
+                        </div>
+                    {% else %}-->
+                        <div class="flex space-x-4">
+                            <div class="text-xl font-bold mb-4 p-2 border-2 w-full rounded-lg border-gray-700
+                                {% if predicted_class == 'Anger' %}
+                                    bg-red-600 text-white
+                                {% elif predicted_class == 'Happiness' %}
+                                    bg-yellow-300 text-gray-700
+                                {% elif predicted_class == 'Sadness' %}
+                                    bg-blue-900 text-white
+                                {% elif predicted_class == 'Surprise' %}
+                                    bg-purple-600 text-white
+                                {% elif predicted_class == 'Neutral' %}
+                                    bg-green-600 text-white
+                                {% else %}
+                                    bg-gray-300 text-black text-xs
+                                {% endif %}
+                            ">
+                                {{ predicted_class }}
+                            </div>
+
+
+                            <div class="text-xl font-bold mb-4 p-2 border-2 bg-gray-700 border-gray-700 rounded-lg text-white ">
+                                {{ confidence_score | round(2) }}%
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap space-x-4">
+                            {% for emotion, probability in probabilities.items() %}
+                                <div class="mb-4 p-2 border-2 rounded-lg text-gray-700 w-20 aspect-square flex items-center justify-center
+                                    {% if emotion == 'Anger' %}
+                                        bg-red-600 text-white text-xs
+                                    {% elif emotion == 'Happiness' %}
+                                        bg-yellow-300 text-gray-700 text-xs
+                                    {% elif emotion == 'Sadness' %}
+                                        bg-blue-900 text-white text-xs
+                                    {% elif emotion == 'Surprise' %}
+                                        bg-purple-600 text-white text-xs
+                                    {% elif emotion == 'Neutral' %}
+                                        bg-green-600 text-white text-xs
+                                    {% else %}
+                                        bg-gray-300 text-black text-xs
+                                    {% endif %}
+                                ">
+                                    {{ emotion }}: {{ probability | round(2) }}%
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="w-full- h-full border-2 border-gray-700 rounded-lg">
+                            <div class="my-2 font-semibold text-lg">Tips :</div>
+                            <div>{{ handling_tip }}</div>
+                        </div>
+                   <!-- {% endif %} -->
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Rekomendasi Tips -->
-    <div class="w-full grid grid-cols-2 gap-4">
-        <div class="bg-white h-[450px] rounded-2xl shadow-xl">
-            <img src="data:image/png;base64,{{ img_base64 }}" alt="Uploaded Image" class="w-full h-full rounded-2xl">
-        </div>
-        <div class="h-[450px] rounded-2xl py-8 shadow-xl {% if predicted_class == 'Healthy' %}bg-healthy{% else %}bg-disease{% endif %}">
-            <div class="flex items-center px-4">
-                <img src="static/images/idea.png" alt="">
-                <div class="text-xl text-white font-bold">{{ handling_tip.title }}</div>
-            </div>
-            <div class="mt-4 text-white px-8">
-                <ul>
-                    {% for tip in handling_tip.tips %}
-                        <li>{{ tip }}</li>
-                    {% endfor %}
-                    <div class="mt-8">
-                        <a href="{{ url_for('information') }}" class="bg-white text-black border-2 border-[#FFCB39] font-medium px-4 py-2 rounded-lg hover:bg-[#FFCB39] hover:text-white cursor-pointer">
-                            Selengkapnya
-                        </a>
-                    </div>
-                </ul>
-            </div>
-        </div>
-    </div>
     {% endif %}
 </div>
 
-<div id="upload-warning" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div class="bg-white rounded-lg p-8 shadow-xl text-center">
-        <h2 class="text-xl font-semibold text-red-500 mb-4">File belum diunggah!</h2>
-        <p class="text-gray-600">Harap unggah file sebelum melanjutkan.</p>
-        <button id="close-warning" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
-            OK
-        </button>
-    </div>
-</div>
-
-
+<!-- Script untuk menangani tanda upload -->
 <script>
-    const fileUpload = document.getElementById('file-upload');
-    const fileName = document.getElementById('file-name');
-    const form = document.getElementById('upload-form');
-    const warningModal = document.getElementById('upload-warning');
-    const closeWarning = document.getElementById('close-warning');
+    document.getElementById('file-upload').addEventListener('change', function() {
+        const fileName = this.files[0]?.name || '';
+        const fileNameElement = document.getElementById('file-name');
+        const uploadSuccessElement = document.getElementById('upload-success');
 
-    fileUpload.addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            fileName.textContent = `File dipilih: ${file.name}`;
+        if (fileName) {
+            fileNameElement.textContent = fileName;
+            uploadSuccessElement.classList.remove('hidden');
         } else {
-            fileName.textContent = '';
+            fileNameElement.textContent = '';
+            uploadSuccessElement.classList.add('hidden');
         }
-    });
-    form.addEventListener('submit', (event) => {
-        if (!fileUpload.files.length) {
-            event.preventDefault(); // Mencegah form terkirim
-            warningModal.classList.remove('hidden'); // Tampilkan modal
-        }
-    });
-    closeWarning.addEventListener('click', () => {
-        warningModal.classList.add('hidden'); // Sembunyikan modal
     });
 </script>
 {% endblock %}

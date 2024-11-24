@@ -1,9 +1,44 @@
 {% extends "base.html" %}
 {% block title %}article{% endblock %}
 {% block content %}
-<div class="text-center">
-    <h1 class="text-4xl font-bold text-gray-800 mb-4">Selamat Datang di Emotion Recognition Web App</h1>
-    <p class="text-gray-600 text-lg">This is the home page of the website, styled with Tailwind CSS.</p>
-    <a href="/about" class="mt-6 inline-block px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300">Learn More About Us</a>
-</div>
+<body class="bg-gray-100 font-sans">
+
+    <!-- Header Section -->
+    <header class="bg-blue-600 text-white py-6 text-center">
+        <h1 class="text-4xl font-bold">Understanding the Importance of Web Development</h1>
+        <p class="mt-2 text-lg">Exploring the key principles and trends in modern web design and development</p>
+    </header>
+
+    <!-- Article Content Section -->
+    <section class="max-w-3xl mx-auto p-6 bg-white shadow-lg mt-8 rounded-lg">
+        <h2 class="text-3xl font-semibold text-gray-800">The Growing Importance of Web Development</h2>
+        <p class="mt-4 text-gray-600">
+            Web development has evolved significantly over the years, moving from static web pages to dynamic, interactive platforms. With the growing demand for seamless user experiences, it's crucial for developers to stay updated on the latest trends and technologies.
+        </p>
+
+        <p class="mt-4 text-gray-600">
+            Modern web development involves not only HTML, CSS, and JavaScript, but also powerful frameworks and libraries like React, Angular, and Vue.js. The choice of tools depends on the project's needs, but the goal is always to create responsive, fast, and secure websites.
+        </p>
+
+        <!-- Link to Website -->
+        <div class="mt-6">
+            <h3 class="text-xl font-semibold text-gray-800">Learn More</h3>
+            <p class="mt-2 text-gray-600">For a deeper understanding of web development, visit the official website:</p>
+            <a href="https://www.example.com" target="_blank" class="mt-2 inline-block text-blue-600 hover:text-blue-800 font-semibold">
+                Visit Web Development Resource
+            </a>
+        </div>
+
+        <!-- YouTube Video -->
+        <div class="mt-8">
+            <h3 class="text-xl font-semibold text-gray-800">Watch This Video on Web Development</h3>
+            <p class="mt-2 text-gray-600">Watch a detailed explanation on web development in the video below:</p>
+
+            <div class="mt-4 aspect-w-16 aspect-h-9">
+                <iframe class="w-full h-full rounded-lg" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+</body>
 {% endblock %}
