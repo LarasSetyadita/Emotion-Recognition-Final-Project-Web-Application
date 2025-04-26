@@ -1,5 +1,5 @@
 ﻿# Emotion-Recognition-Final-Project-Web-Application
-This repository stores the final assignment code for the 6th semester web application subject.
+This repository stores the final assignment code for the 5th semester web application subject.
 
 # Description
 This project develops machine learning to analyze human emotions through images.
